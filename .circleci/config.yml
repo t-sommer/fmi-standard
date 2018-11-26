@@ -1,17 +1,17 @@
 version: 2
-  jobs:
-    build:
-      machine: true
-      steps:
-        -run:
-          name: Compile headers
-          command: gcc headers/fmi3Functions.h
-        - run:
-          name: Generate HTML
-          command: docker run -v ~:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor --base-dir /documents/ --backend html5 --failure-level WARN docs/fmi_specification.adoc
-        - run:
-          name: Validate HTML
-          command: docker run -v ~/docs/:/documents/ 18fgsa/html-proofer /documents --only-4xx
-        - store_artifacts:
-          path: ~/docs
-          destination: docs
+jobs:
+  build:
+    machine: true
+    steps:
+      -run:
+        name: Compile headers
+        command: gcc headers/fmi3Functions.h
+      - run:
+        name: Generate HTML
+        command: docker run -v ~:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor --base-dir /documents/ --backend html5 --failure-level WARN docs/fmi_specification.adoc
+      - run:
+        name: Validate HTML
+        command: docker run -v ~/docs/:/documents/ 18fgsa/html-proofer /documents --only-4xx
+      - store_artifacts:
+        path: ~/docs
+        destination: docs
