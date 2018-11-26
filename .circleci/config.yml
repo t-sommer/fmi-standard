@@ -6,16 +6,16 @@ jobs:
       - checkout
       - run:
           name: List Directory
-          command: ls -al ~
+          command: ls -al ~/project
       - run:
           name: Compile headers
-          command: gcc headers/fmi3Functions.h
+          command: gcc ~/project/headers/fmi3Functions.h
       - run:
           name: Generate HTML
-          command: docker run -v ~:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor --base-dir /documents/ --backend html5 --failure-level WARN docs/fmi_specification.adoc
+          command: docker run -v ~/project/:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor --base-dir /documents/ --backend html5 --failure-level WARN docs/fmi_specification.adoc
       - run:
           name: Validate HTML
-          command: docker run -v ~/docs/:/documents/ 18fgsa/html-proofer /documents --only-4xx
+          command: docker run -v ~/project/docs/:/documents/ 18fgsa/html-proofer /documents --only-4xx
       - store_artifacts:
-          path: ~/docs
+          path: ~/project/docs
           destination: docs
