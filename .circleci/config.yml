@@ -16,6 +16,9 @@ jobs:
       - run:
           name: Validate HTML
           command: docker run -v ~/project/docs/:/documents/ 18fgsa/html-proofer /documents --only-4xx
+      - run:
+          name: Create archive
+          command: cd ~/project && zip archive.zip README.adoc CHANGELOG.adoc LICENSE.txt docs/fmi_specification.html docs/fmi-spec.css docs/images/* headers/*.h schema/*.xsd
       - store_artifacts:
-          path: ~/project/docs
+          path: ~/project/archive.zip
           destination: docs
