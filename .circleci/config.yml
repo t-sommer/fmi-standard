@@ -5,6 +5,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: List Directory
+          command: ls -al ~
+      - run:
           name: Compile headers
           command: gcc headers/fmi3Functions.h
       - run:
