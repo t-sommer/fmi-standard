@@ -3,6 +3,7 @@ jobs:
   build:
     machine: true
     steps:
+      - checkout
       - run:
           name: Compile headers
           command: gcc headers/fmi3Functions.h
