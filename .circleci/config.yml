@@ -10,9 +10,8 @@ jobs:
       - run:
           name: Parse XSD schema
           command: |
-            sudo apt-get update -y
-            sudo apt-get install -y python-lxml
-            python -c "from lxml import etree; etree.XMLSchema(file='~/project/schema/fmi3ModelDescription.xsd')"
+            pip install lxml
+            python -c "from lxml import etree; etree.XMLSchema(file='/home/circleci/project/schema/fmi3ModelDescription.xsd')"
       - run:
           name: Generate HTML
           command: docker run -v ~/project/:/documents/ --name asciidoc-to-html asciidoctor/docker-asciidoctor asciidoctor --base-dir /documents/ --backend html5 --failure-level WARN docs/fmi_specification.adoc
