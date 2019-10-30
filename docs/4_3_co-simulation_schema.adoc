@@ -141,7 +141,7 @@ _[If dependencies (_fmi3VariableDependency_) are defined in the _Modelstructure_
 If dependencies are defined for variables across model partitions, such variables can not be assigned to a clock via _clockReference_.
 
 For FMI for Co-Simulation, variables that are assigned to a model partition of the model based on _clockReference_ are not necessarily "clocked".
-Such variables can be Continuous-time or Discrete-time variables if the clock is of clockType = CPClock.
+Such variables can be Continuous-time or Discrete-time variables if the clock is of clockType = communicationPoint.
 
 
 ===== Capability Flags [[xml-flags-clocked-co-simulation]]

@@ -669,9 +669,9 @@ The variable sub type `fmi3Clock` provides additional attributes for defining cl
 
 |clockType
 |The type of clocks is defined based on the mandatory attribute `clockType`.
-If the properties of a clock adhere to synchronous clock theory it is defined with clockType = `"STClock"`.
+If the properties of a clock adhere to synchronous clock theory it is defined with clockType = `"synchronousTime"`.
 As an additional option for FMI for Co-Simulation discrete parts (that do not necessarily apply to synchronous clock theory) or continuous parts of the FMU can be associated to model partitions via clocks whose ticks define the sampling points (i.e. communication points) for the variables of these model partitions.
-Clocks that are defined for such cases have the clockType attribute value `"CPClock"` and have to be ignored for FMI for Model Exchange.
+Clocks that are defined for such cases have the clockType attribute value `"communicationPoint"` and have to be ignored for FMI for Model Exchange.
 It is not allowed to include clocks of different `clockType` in one FMU.
 `clockType` is a required attribute.
 
@@ -987,14 +987,14 @@ For example, there is no mechanism in the Modelica language to formulate connect
 This attribute can be used in all variable sub types with restrictions based on the `clockType`  attribute.
 The `clockReference` holds only `valueReference` information for variables with base type `fmi3Clock`.
 
-Clock (clockType equals `STClock`): If present, the variable is a clocked variable associated uniquely with the clock referenced by valueReference and defined in element ModelVariables.
+Clock (clockType equals `synchronousTime`): If present, the variable is a clocked variable associated uniquely with the clock referenced by valueReference and defined in element ModelVariables.
 It is not possible to associate more than one clock to a variable.
 
-Communication Point Clock (clockType equals `CPClock`): If present, the variable is associated with the clock referenced by valueReference and defined in element `ModelVariables`.
+Communication Point Clock (clockType equals `communicationPoint`): If present, the variable is associated with the clock referenced by valueReference and defined in element `ModelVariables`.
 It is possible to associate multiple clocks to a variable. Variables that are assigned to a Communication Point Clock are not necessarily "clocked" in the sense of synchronous time clock theory. Such variables can also be Continuous-time or Discrete-time variables.
 
-If output clocks and input clocks of clockType equals `CPClock` are defined in the modelDescription.xml it is possible to define a tick relationship from a output clock to an aperiodic input clock based on `clockReference` (<<clock-relationships-for-communication-point-clocks>>).
-This is done for aperiodic input clocks that have the clockType = `CPClock` via providing a list of valueReferences of output clocks of the same FMU.
+If output clocks and input clocks of clockType equals `communicationPoint` are defined in the modelDescription.xml it is possible to define a tick relationship from a output clock to an aperiodic input clock based on `clockReference` (<<clock-relationships-for-communication-point-clocks>>).
+This is done for aperiodic input clocks that have the clockType = `communicationPoint` via providing a list of valueReferences of output clocks of the same FMU.
 If a output clock of this valueReference list ticks the master has to create a tick for the associated aperiodic input clock at the same time instant.
 It is not allowed to combine output clocks with periodic or strict periodic input clocks based on `clockReference`.
 
