@@ -44,16 +44,14 @@ sources                             // directory containing the C sources (optio
    buildDescription.xml
 binaries                            // directory containing the binaries (optional)
    x86_64-windows                   // binaries for Windows on Intel 64-bit
-      <modelIdentifier>.dll         // shared library of the FMI implementation
-      <other DLLs>                  // the DLL can include other DLLs
-   x86_64-windows-msvc140mt         // static libraries for 64-bit Windows generated
-      <modelIdentifier>.lib         // with Visual Studio 2015 with /MT flag
-   i686-linux                       // binaries for Linux on Intel 32-bit
-      <modelIdentifier>.so          // shared library of the FMI implementation
+      model.dll                     // shared library of the FMI implementation
+      <other DLLs>                  // the DLL can load other DLLs
+   x86-linux                        // binaries for Linux on Intel 32-bit
+      model.so                      // shared library of the FMI implementation
    aarch32-linux                    // binaries for Linux on ARM 32-bit
-      <modelIdentifier>.so          // shared library of the FMI implementation
+      model.so                      // shared library of the FMI implementation
    x86_64-darwin                    // binaries for macOS
-      <modelIdentifier>.dylib       // shared library of the FMI implementation
+      model.dylib                   // shared library of the FMI implementation
 resources                           // resources used by the FMU (optional)
 extra                               // Additional (meta-)data of the FMU (optional)
 ----
@@ -83,7 +81,7 @@ The header files `fmi3PlatformTypes.h`, `fmi3FunctionTypes.h` and `fmi3Functions
 
 Each <<BuildConfiguration>> provides the necessary information to compile and link the sources of the model into a dynamic library or as part of an executable.
 An FMU importing tool may not regard more than one <<BuildConfiguration>> when building the FMU for a specific <<platform>>.
-The importer chooses the matching <<BuildConfiguration>> based on the <<platform>> and <<modelIdentifier>> attributes.
+The importer chooses the matching <<BuildConfiguration>> based on the <<platform>> attribute.
 
 In order to avoid symbol name conflicts when compiling and linking multiple source code FMUs, source files should keep the exported symbols to a minimum by declaring all symbols not needed for linking as `static`.
 If only a single <<SourceFile>> is provided in the <<BuildConfiguration>> all symbols except for the FMI functions should be defined as `static`.
@@ -97,12 +95,9 @@ It is also recommended to use a descriptive name (e.g. `<model_identifier>.c`) f
 |Attribute
 |Description
 
-|[[modelIdentifier,`modelIdentifier`]]`modelIdentifier`
-|The attribute <<modelIdentifier>> of the `<ModelExchange>`, `<CoSimulation>` or `<ScheduledExecution>` elements this build configuration is associated with.
-
 |[[platform,`platform`]]`platform`
 |Platform tuple of the platform the <<BuildConfiguration>> is intended for (e.g. `x86_64-linux`).
-All <<platform>> attributes defined in the <<BuildConfiguration>> elements for the same `<modelIdentifier>` must be unique.
+All <<platform>> attributes defined in the <<BuildConfiguration>> elements must be unique.
 For each <<platform>> there can only be one matching <<BuildConfiguration>>.
 This attribute is optional.
 Thus there must not be more than one <<BuildConfiguration>> without a <<platform>> attribute.
@@ -264,7 +259,7 @@ include::examples/build_description_complex.xml[]
 
 ===== Directory Binaries [[binaries-directory]]
 
-If an FMU is run through one of its binaries all items in that binary folder must be unpacked at the same location as the binary `<modelIdentifier>.*`.
+If an FMU is loaded from a shared library, the containing folder must be extracted completely retaining all files and directories.
 
 ====== Platform Tuple Definition [[platform-tupe-definition]]
 
@@ -467,26 +462,6 @@ In order to avoid ambiguities and conflicts, the extra files should be provided 
 The use of subdirectories beginning with `org.modelica` and `org.fmi-standard` is explicitly reserved for use by MAP FMI-defined layered standards, i.e. other uses must not use subdirectory names beginning with these prefixes.
 It is explicitly allowed for tools and users other than the original creator of an FMU to modify, add or delete entries in the `extra/` directory without affecting the validity of the FMU in all other aspects.
 Specifically all validation or digital signature schemes used to protect the content of the FMU should take the variability of extra file content into account _[(for example by having separate checksums or signatures for FMU core content and extra content, or not having signatures at all for extra content)]_.
-
-==== Multiple Interface Types
-
-Exporters may support multiple FMI types in one FMU, so it can be used in differently capable simulation algorithms and for different use cases.
-To indicate support for a specific interface type, the `<fmiModelDescription>` must have the respective element present, irrespective if a specific interface type is contained in binary or source format.
-
-_[The described multi-mode support is often based on wrapping functionality into the <<fmi3DoStep>> function by emulating missing features of the Model Exchange and Scheduled Execution interface types.]_
-
-----
-[Example of different libraries:
-   binaries
-     x86_64-windows
-        MyModel_ModelExchange.dll      // modelIdentifier of <ModelExchange> =
-                                       //    "MyModel_ModelExchange"
-        MyModel_CoSimulation.dll       // modelIdentifier of <CoSimulation> =
-                                       //    "MyModel_CoSimulation"
-]
-----
-
-Support of multiple interface types in one FMU is possible only, if the interface variables are identical.
 
 ==== Dependency on Installed Tool [[dependency-on-exteranl-tool]]
 

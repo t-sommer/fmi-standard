@@ -39,7 +39,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <xs:sequence minOccurs="0">
             <xs:element ref="Annotations" minOccurs="0"/>
         </xs:sequence>
-        <xs:attribute name="modelIdentifier" type="xs:normalizedString" use="required"/>
         <xs:attribute name="needsExecutionTool" type="xs:boolean" default="false"/>
         <xs:attribute name="canBeInstantiatedOnlyOncePerProcess" type="xs:boolean" default="false"/>
         <xs:attribute name="canGetAndSetFMUState" type="xs:boolean" default="false"/>
