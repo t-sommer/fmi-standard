@@ -8,7 +8,7 @@
 :xrefstyle: short
 :docinfo: shared
 :docinfodir: docs/common
-:stylesheet: docs/common/fmi-spec.css
+//:stylesheet: docs/common/fmi-spec.css
 :stem: latexmath
 :source-highlighter: highlightjs
 :nofooter:
