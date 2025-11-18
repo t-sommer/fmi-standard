@@ -6,7 +6,7 @@ The state machine in <<figure-model-exchange-state-machine>> defines the allowed
 [#figure-model-exchange-state-machine]
 image::images/state-machine-model-exchange.svg[width=80%, align="center"]
 
-Common state machine modes are defined in <<common-state-machine>>, such as super modes <<FMUStateSettable>> and  <<Initialized>>, modes <<Instantiated>>, <<ConfigurationMode>>, <<ReconfigurationMode>>, <<InitializationMode>>, <<EventMode>> and <<Terminated>>.
+Common modes are defined in <<common-state-machine>>, such as super modes <<FMUStateSettable>> and <<Initialized>>, modes <<Instantiated>>, <<ConfigurationMode>>, <<ReconfigurationMode>>, <<InitializationMode>>, <<EventMode>>, and <<Terminated>>.
 
 ==== State: Continuous-Time Mode [[ContinuousTimeMode,*Continuous-Time Mode*]]
 
@@ -185,7 +185,7 @@ Function `fmi3EnterEventMode`::
 include::../headers/fmi3FunctionTypes.h[tags=EnterEventMode]
 ----
 +
-This function changes the state machine mode to <<EventMode>>.
+This function changes the mode to <<EventMode>>.
 +
 The importer must call <<fmi3EnterEventMode>> when any of the following conditions are met:
 

@@ -322,7 +322,7 @@ Properties that might be additionally needed for trajectory optimization, for ex
 === How to Read This Document
 
 The core of this document is the description of the state machines and their modes for each of the three interface types, each interface type in its own section.
-Each state machine mode description starts with a brief mode's purpose, then the mathematical model in a table linking formulas with C-API functions, and finally descriptions of all allowed functions for this particular state machine mode.
+Each section starts with a brief description of the mode's purpose, then the mathematical model in a table linking formulas with the C-API functions, and finally descriptions of all allowed functions for this particular state machine mode.
 
 To keep the descriptions brief and redundancy low, <<fmi-common-concepts,common concepts>>, which are used by more than one interface type, are described once.
 

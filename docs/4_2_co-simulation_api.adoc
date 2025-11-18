@@ -6,11 +6,11 @@ The state machine in <<figure-co-simulation-state-machine>> defines the allowed 
 [#figure-co-simulation-state-machine]
 image::images/state-machine-co-simulation.svg[width=80%, align="center"]
 
-Common state machine modes are defined in <<common-state-machine>>, such as super modes <<FMUStateSettable>> and  <<Initialized>>, modes <<Instantiated>>, <<ConfigurationMode>>, <<ReconfigurationMode>>, <<InitializationMode>>, <<EventMode>>, and <<Terminated>>.
+Common modes are defined in <<common-state-machine>>, such as super modes <<FMUStateSettable>> and <<Initialized>>, modes <<Instantiated>>, <<ConfigurationMode>>, <<ReconfigurationMode>>, <<InitializationMode>>, <<EventMode>>, and <<Terminated>>.
 
 ==== State: Step Mode [[StepMode,*Step Mode*]]
 
-The state machine mode <<StepMode>> is used to compute the values of all variables between communication points and events and to advance time in the FMU.
+The mode <<StepMode>> is used to compute the values of all variables between communication points and events and to advance time in the FMU.
 If the FMU is connected in <<algebraic-loops,algebraic loops>> with other models, iterations over the FMU equations requires <<get-set-fmu-state,setting the FMU to a state previously stored>> (using <<fmi3GetFMUState>> and <<fmi3SetFMUState>>) and repeating <<fmi3DoStep>>.
 
 During <<StepMode>>, <<clocked-variable,clocked variables>> can not be set or get because <<Clock,Clocks>> are only active during <<EventMode>>.
@@ -139,7 +139,7 @@ Function <<fmi3EnterEventMode>>::
 include::../headers/fmi3FunctionTypes.h[tags=EnterEventMode]
 ----
 +
-This function changes the state machine mode to <<EventMode>>.
+This function changes the mode to <<EventMode>>.
 +
 The importer must call <<fmi3EnterEventMode>> when any of the following conditions are met:
 +
@@ -190,7 +190,7 @@ It distinguishes the level of trust that can be placed in the tentative outputs 
 [#figure-IntermediateUpdateMode]
 image::images/intermediateupdate.svg[width=65%, align="center"]
 
-The FMU enters <<IntermediateUpdateMode>> by calling <<fmi3IntermediateUpdateCallback>> within <<StepMode>> and leaves the state machine mode towards <<StepMode>> when the function returns.
+The FMU enters <<IntermediateUpdateMode>> by calling <<fmi3IntermediateUpdateCallback>> within <<StepMode>> and returns to <<StepMode>> when the callback function returns.
 
 [[fmi3IntermediateUpdateCallback,`fmi3IntermediateUpdateCallback`]]
 [source, C]

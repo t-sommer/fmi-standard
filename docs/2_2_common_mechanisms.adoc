@@ -222,13 +222,13 @@ The call failed.
 The output argument values are undefined and the simulation must not be continued.
 Function <<logMessage>> should be called by the FMU with further information before returning this status, respecting the current logging settings.
 If a function returns <<fmi3Error>>, it is possible to restore a previously retrieved FMU state by calling <<fmi3SetFMUState>> or to reset the instance by calling <<fmi3Reset>>.
-When detecting illegal arguments or a function call not allowed in the current state machine mode according to the respective state machine, the FMU must return <<fmi3Error>>.
+When detecting illegal arguments or a function call not allowed in the current mode according to the respective state machine, the FMU must return <<fmi3Error>>.
 Other instances of this FMU are not affected by the error. +
 _[For example, when setting a constant with a call to <<get-and-set-variable-values,`fmi3Set{VariableType}`>>, then the function must return with an error (<<fmi3Error,`fmi3Status = fmi3Error`>>.]_
 
 [[fmi3Fatal,`fmi3Fatal`]]
 `fmi3Fatal`::
-The state machine mode of all instances of the model is irreparably corrupted.
+The state machine of all instances of the model is irreparably corrupted.
 _[For example, due to a runtime exception such as access violation or integer division by zero during the execution of an FMI function.]_
 Function <<logMessage>> should be called by the FMU with further information before returning this status, respecting the current logging settings, if still possible.
 The importer must not call any other function for any instance of the FMU.
@@ -337,7 +337,7 @@ If an API function takes multiple value references, the serialized variables are
 
 ===== Getting and Setting Variable Values [[get-and-set-variable-values]]
 
-Restrictions for setting and getting of variables with certain types, causalities and variabilities are defined in the state machine and state machine mode descriptions (see <<common-state-machine>> for common state machine modes, <<state-machine-model-exchange>> for Model Exchange, <<state-machine-co-simulation>> for Co-Simulation, and <<state-machine-scheduled-execution>> for Scheduled Execution).
+Restrictions for setting and getting of variables with certain types, causalities and variabilities are defined in the state machine and mode descriptions (see <<common-state-machine>> for common modes, <<state-machine-model-exchange>> for Model Exchange, <<state-machine-co-simulation>> for Co-Simulation, and <<state-machine-scheduled-execution>> for Scheduled Execution).
 In addition to those state-specific restrictions, setting and getting of <<clocked-variable,clocked variables>> is only allowed during <<EventMode>> when their respective Clocks are active, and during <<InitializationMode>> irrespective of Clock activation status.
 
 The variable <<ModelVariables,type>> defined in the <<modelDescription.xml>> determines the function <<get-and-set-variable-values,`fmi3Get/Set{VariableType}`>> (see also <<VariableType,`{VariableType}`>> and <<VariableTypeExclClock,`{VariableTypeExclClock}`>>) that must be used for accessing the respective variable values.
@@ -1114,7 +1114,7 @@ In every state, the general form of the FMU equations is:
 
 where
 
-* latexmath:[\mathbf{v}_{\mathit{unknown}}] is the vector of unknown variables computed in the current state machine mode:
+* latexmath:[\mathbf{v}_{\mathit{unknown}}] is the vector of unknown variables computed in the current mode:
 
 ** <<InitializationMode>>: The exposed unknowns listed as elements <<InitialUnknown>> in <<ModelStructure>> that have a floating point type.
 
@@ -1125,15 +1125,15 @@ where
 ** <<StepMode>> (Co-Simulation): The variables listed as elements <<Output>> of <<ModelStructure>> with a floating point type and <<variability>> = <<continuous>> or <<discrete>>.
 Each continuous-time state derivative variable listed as elements <<ContinuousStateDerivative>> in <<ModelStructure>>, if present.
 
-* latexmath:[\mathbf{v}_{\mathit{known}}] is the vector of arguments of function latexmath:[\mathbf{f}] which can be changed by the importer in the current state machine mode.
+* latexmath:[\mathbf{v}_{\mathit{known}}] is the vector of arguments of function latexmath:[\mathbf{f}] which can be changed by the importer in the current mode.
 Details about which variables are in latexmath:[\mathbf{v}_{\mathit{known}}] are given in the description of element <<dependencies>> in <<ModelStructure>>.
 
-* latexmath:[{\mathbf{v}_{\mathit{rest}}}] is the set of <<input>> variables and discrete-time states of function latexmath:[\mathbf{f}] which cannot be set by the importer in the current state machine mode, but in other state machine modes _[for example, discrete-time <<input,`inputs`>> in <<ContinuousTimeMode>>]_.
+* latexmath:[{\mathbf{v}_{\mathit{rest}}}] is the set of <<input>> variables and discrete-time states of function latexmath:[\mathbf{f}] which cannot be set by the importer in the current mode, but in other modes _[for example, discrete-time <<input,`inputs`>> in <<ContinuousTimeMode>>]_.
 
 * <<EventIndicator,`EventIndicators`>> must not be included among latexmath:[\mathbf{v}_{\mathit{unknown}}]. +
 _[This is intentional as their dependencies listed in <<ModelStructure>> are intended for debugging purposes and not for partial derivatives.]_
 
-_[The variable relationships are different in different state machine modes._
+_[The variable relationships are different in different modes._
 _For example, during <<ContinuousTimeMode>>, the partial derivate of a continuous-time output_ latexmath:[\mathbf{y}] _with respect to discrete-time <<input,`inputs`>> is undefined, because discrete-time <<input,`inputs`>> cannot be set between events.]_
 
 There are two access functions for partial derivatives:
