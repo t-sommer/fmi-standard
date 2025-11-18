@@ -390,7 +390,7 @@ include::../headers/fmi3FunctionTypes.h[tags=GetNominalsOfContinuousStates]
 Return the nominal values of the continuous <<state,states>>.
 This function can only be called in Model Exchange.
 
-* Return argument `nominals` contains the nominal values for each <<state,continuous-time state>> with the same convention for the order as defined for <<fmi3SetContinuousStates>>.
+* Return argument `nominals` contains the nominal values for each <<state,continuous state>> with the same convention for the order as defined for <<fmi3SetContinuousStates>>.
 If the FMU does not have information about the nominal value of a continuous <<state>> `i`, a nominal value `nominals[i] = 1.0` should be returned.
 It is required that `nominals[i] > 0.0`.
 
@@ -553,7 +553,7 @@ a|
 Allowed Function Calls::
 
 Function <<get-and-set-variable-values,`fmi3Set{VariableType}`>>::
-This function can be called for variables with <<causality>> = <<input>>, <<causality>> = <<parameter>> and <<variability>> = <<tunable>>, and <<state,continuous-time states>> with <<reinit>> = `false`.
+This function can be called for variables with <<causality>> = <<input>>, <<causality>> = <<parameter>> and <<variability>> = <<tunable>>, and <<state,continuous states>> with <<reinit>> = `false`.
 
 Functions <<get-and-set-variable-values,`fmi3Get{VariableType}`>>::
 Getting variables might trigger <<selective-computation,computations>>.
@@ -637,14 +637,14 @@ include::../headers/fmi3FunctionTypes.h[tag=UpdateDiscreteStates]
 * When <<terminateSimulationUDS,`terminateSimulation = fmi3True`>>, the FMU requests to stop the simulation.
 
 [[nominalsOfContinuousStatesChanged,`nominalsOfContinuousStatesChanged`]]
-* If argument `nominalsOfContinuousStatesChanged = fmi3True`, then at least one nominal value of the <<state,continuous-time states>> has changed and can be inquired with <<fmi3GetNominalsOfContinuousStates>>. +
+* If argument `nominalsOfContinuousStatesChanged = fmi3True`, then at least one nominal value of the <<state,continuous states>> has changed and can be inquired with <<fmi3GetNominalsOfContinuousStates>>. +
 This argument is only valid in Model Exchange.
 
 [[valuesOfContinuousStatesChanged,`valuesOfContinuousStatesChanged`]]
-* If argument `valuesOfContinuousStatesChanged = fmi3True`, then at least one continuous-time state has changed its value because it was re-initialized (see <<reinit>>). +
+* If argument `valuesOfContinuousStatesChanged = fmi3True`, then at least one continuous state has changed its value because it was re-initialized (see <<reinit>>). +
 
 +
-The new values of the <<state,continuous-time states>> can be inquired with <<fmi3GetContinuousStates>> or individually for each continuous-time state for which <<reinit, `reinit = true`>> by calling `fmi3GetFloat64`. +
+The new values of the <<state,continuous states>> can be inquired with <<fmi3GetContinuousStates>> or individually for each continuous state for which <<reinit, `reinit = true`>> by calling `fmi3GetFloat64`. +
 This argument is only valid in Model Exchange.
 
 [[nextEventTimeDefined,`nextEventTimeDefined`]]

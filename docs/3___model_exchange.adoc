@@ -11,7 +11,7 @@ The solver algorithm is responsible for:
 
 * advancing the overall simulation time,
 * exchange input and output data,
-* computation of continuous-time state variables by time integration,
+* computation of continuous state variables by time integration,
 * triggering of input clocks, and
 * handling events.
 

@@ -182,7 +182,7 @@ These parameters are different from <<calculatedParameter,calculated parameters>
 |A naming convention based on registered domain names, with the order of the components reversed for grouping purposes.
 
 |[[reinitialization]]_reinitialization_
-|Recalculation of <<state,continuous-time states>> by the model.
+|Recalculation of <<state,continuous states>> by the model.
 
 |_runtime environment_
 |See co-simulation environment

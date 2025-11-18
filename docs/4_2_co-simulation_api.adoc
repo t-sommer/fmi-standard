@@ -214,7 +214,7 @@ If the importer does not provide a new value for any of the variables contained 
 The set of variables for which the importer may get values is defined by the <<requiredIntermediateVariables>> argument of <<fmi3InstantiateCoSimulation>>.
 
 [[intermediateStepFinished,`intermediateStepFinished`]]
-* If <<intermediateStepFinished, `intermediateStepFinished = fmi3False`>>, the intermediate output values of the FMU that the importer inquires with <<get-and-set-variable-values,`fmi3Get{VariableType}`>> resulting from tentative internal solver states and may still change for the same <<intermediateUpdateTime>> _[e.g., if the solver deems the tentative continuous-time state to cause an unacceptable approximation error, it may go back in time and try to re-estimate the continuous-time state using smaller internal time steps]_. +
+* If <<intermediateStepFinished, `intermediateStepFinished = fmi3False`>>, the intermediate output values of the FMU that the importer inquires with <<get-and-set-variable-values,`fmi3Get{VariableType}`>> resulting from tentative internal solver states and may still change for the same <<intermediateUpdateTime>> _[e.g., if the solver deems the tentative continuous state to cause an unacceptable approximation error, it may go back in time and try to re-estimate the continuous state using smaller internal time steps]_. +
 If <<intermediateStepFinished, `intermediateStepFinished = fmi3True`>>, intermediate output values inquired by the importer with <<get-and-set-variable-values,`fmi3Get{VariableType}`>> correspond to accepted internal solver steps.
 
 [[canReturnEarly,`canReturnEarly`]]

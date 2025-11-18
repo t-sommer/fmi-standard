@@ -1425,7 +1425,7 @@ All variables listed in these elements must have attribute `derivative`.
 |`reinit`
 |[[reinit,`reinit`]]
 Only used in Model Exchange, ignored for the other interface types.
-May only be present for a <<state,continuous-time state>>. +
+May only be present for a <<state,continuous state>>. +
 If `true`, the <<state>> may be <<reinitialization,reinitialized>> by the FMU in <<EventMode>>. +
 If `false`, the <<state>> will not be <<reinitialization,reinitialized>>.
 
@@ -1718,7 +1718,7 @@ Optional attribute defining the algebraic dependencies as list of value referenc
 For a real valued unknown and a real valued known, if the known is not listed among the dependencies then the partial derivative of the unknown with respect to that known is identically zero.
 If dependencies is not present, it must be assumed that the unknown depends on all knowns.
 If dependencies is present as empty list, the unknown depends on none of the knowns.
-_[The importer should not rely on self-dependencies to be explicitly listed, e.g., <<Output>>s that are continuous-time state(s) have an implicit self-dependency.]_
+_[The importer should not rely on self-dependencies to be explicitly listed, e.g., <<Output>>s that are continuous state(s) have an implicit self-dependency.]_
 Otherwise the unknown depends on the knowns defined by the given value references. +
 _[This means that all dependencies must be listed, also the dependencies of clocked variables on their clocks.]_ +
 Knowns latexmath:[{\mathbf{v}_{\mathit{known}}}] in <<EventMode>> and <<ContinuousTimeMode>> (ME) and at communication points (CS and SE) for <<Output>> and <<ContinuousStateDerivative>> elements are: +

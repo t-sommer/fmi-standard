@@ -76,7 +76,7 @@ _[This allows limited simulation backward in time._
 _As soon as an event occurs (<<fmi3EnterEventMode>> was called), going back in time is impossible, because <<fmi3EnterEventMode>> / <<fmi3UpdateDiscreteStates>> can only compute the next discrete-time state, not the previous one.]_
 
 Function <<get-and-set-variable-values,`fmi3Set{VariableType}`>>::
-Only for variables with <<causality>> = <<input>> and <<variability>> = <<continuous>>, and continuous-time states.
+Only for variables with <<causality>> = <<input>> and <<variability>> = <<continuous>>, and continuous states.
 
 Functions <<get-and-set-variable-values,`fmi3Get{VariableType}`>>::
 Getting variables might trigger <<selective-computation,computations>>.
@@ -89,19 +89,19 @@ Function `fmi3SetContinuousStates`::
 include::../headers/fmi3FunctionTypes.h[tags=SetContinuousStates]
 ----
 +
-Set new continuous-time state values.
+Set new continuous state values.
 +
-* Argument `continuousStates` contains the new values for each <<state,continuous-time state>>.
+* Argument `continuousStates` contains the new values for each <<state,continuous state>>.
 The order of the `continuousStates` vector must be the same as the ordered list of elements <<ContinuousStateDerivative>> in <<ModelStructure>>.
 Array variables are serialized as defined in <<serialization-of-variables>>.
 This order is also used in the arguments of the following functions: <<fmi3GetNominalsOfContinuousStates>>, <<fmi3GetContinuousStates>>, and <<fmi3GetContinuousStateDerivatives>>.
 +
 * Argument `nContinuousStates` is the size of the `continuousStates` vector.
 +
-_[<<fmi3Discard,`fmi3Status = fmi3Discard`>> should be returned if the FMU rejects any of the continuous-time state values because they, for example, violate min/max value restrictions.]_
+_[<<fmi3Discard,`fmi3Status = fmi3Discard`>> should be returned if the FMU rejects any of the continuous state values because they, for example, violate min/max value restrictions.]_
 
 Function <<fmi3GetContinuousStates>>::
-Returns the current continuous-time state vector.
+Returns the current continuous state vector.
 
 [[fmi3GetContinuousStateDerivatives,`fmi3GetContinuousStateDerivatives`]]
 Function `fmi3GetContinuousStateDerivatives`::
@@ -111,9 +111,9 @@ Function `fmi3GetContinuousStateDerivatives`::
 include::../headers/fmi3FunctionTypes.h[tags=GetDerivatives]
 ----
 +
-Returns the first-order derivatives with respect to the independent variable (usually time) of the continuous-time states.
+Returns the first-order derivatives with respect to the independent variable (usually time) of the continuous states.
 +
-* Return argument `derivatives` contains the derivatives for each <<state,continuous-time state>> with the same convention for the order as defined for <<fmi3SetContinuousStates>>.
+* Return argument `derivatives` contains the derivatives for each <<state,continuous state>> with the same convention for the order as defined for <<fmi3SetContinuousStates>>.
 
 * Argument `nContinuousStates` is the size of the `derivatives` vector.
 +
@@ -166,12 +166,12 @@ _[In this function the FMU might, for example:_
 
 * _Update delay buffers_
 * _Detect <<step-event,step events>> and request handling of <<step-event,step events>>:_
-** _for <<dynamic-state-selection,dynamic state selection>>: The FMU checks whether the dynamically selected continuous-time states are still numerically appropriate._
+** _for <<dynamic-state-selection,dynamic state selection>>: The FMU checks whether the dynamically selected continuous states are still numerically appropriate._
 _If not, the function returns with `enterEventMode = fmi3True`, the importer will call <<fmi3EnterEventMode>> and in <<EventMode>> the new mapping is computed by the FMU._
-** _for projection: FMUs that represent a DAE can project their continuous-time states onto the constraint manifold in <<fmi3UpdateDiscreteStates>>._
+** _for projection: FMUs that represent a DAE can project their continuous states onto the constraint manifold in <<fmi3UpdateDiscreteStates>>._
 
 +
-_The new mapping or projection values might require a reinitialization of continuous-time states, which must be signaled to the importer by returning from <<fmi3UpdateDiscreteStates>> with <<valuesOfContinuousStatesChanged,`valuesOfContinuousStatesChanged = fmi3True`>>._
+_The new mapping or projection values might require a reinitialization of continuous states, which must be signaled to the importer by returning from <<fmi3UpdateDiscreteStates>> with <<valuesOfContinuousStatesChanged,`valuesOfContinuousStatesChanged = fmi3True`>>._
 
 +
 _The function <<fmi3CompletedIntegratorStep>> is not used to detect <<time-event,time events>> or <<state-event,state events>>, for example, by comparing event indicators of the previous with the current call of <<fmi3CompletedIntegratorStep>>._

@@ -420,7 +420,7 @@ If an FMU defines min/max values for <<local>> and <<output>> variables of float
 ===== Getting and Setting the Complete FMU State [[get-set-fmu-state]]
 
 The FMU has internal data representing its entire state.
-This internal FMU state consists especially of the values of the continuous-time states, discrete-time states, iteration variables, <<parameter>> values, <<input>> values, delay buffers, file identifiers, and FMU internal status information.
+This internal FMU state consists especially of the values of the continuous states, discrete-time states, iteration variables, <<parameter>> values, <<input>> values, delay buffers, file identifiers, and FMU internal status information.
 Depending on the FMI type, only a subset of this data is directly accessible via the FMI C-API.
 With the functions of this section, the entire internal FMU state can be stored and reapplied to continue the simulation from this FMU state.
 
@@ -428,9 +428,9 @@ _[Examples for using this feature:_
 
 * _For variable step-size control of co-simulation algorithms: get the FMU state for every accepted communication step; if the follow-up step is not accepted, restart co-simulation from this FMU state._
 
-* _For nonlinear Kalman filters: get the FMU state just before initialization; in every sample period, set new continuous-time states from the Kalman filter algorithm based on measured values; integrate to the next sample instant and inquire the predicted continuous-time states that are used in the Kalman filter algorithm as basis to set new continuous-time states._
+* _For nonlinear Kalman filters: get the FMU state just before initialization; in every sample period, set new continuous states from the Kalman filter algorithm based on measured values; integrate to the next sample instant and inquire the predicted continuous states that are used in the Kalman filter algorithm as basis to set new continuous states._
 
-* _For nonlinear model predictive control: get the FMU state just before initialization; in every sample period, set new continuous-time states from an observer, initialize and get the FMU state after initialization._
+* _For nonlinear model predictive control: get the FMU state just before initialization; in every sample period, set new continuous states from an observer, initialize and get the FMU state after initialization._
 _From this state, perform many simulations that are restarted after the initialization with new input variables proposed by the optimizer.]_
 
 Furthermore, the FMU state can be serialized and copied in a byte vector.
@@ -1123,7 +1123,7 @@ where
 ** <<EventMode>> (Model Exchange): The same variables as in the <<ContinuousTimeMode>> and additionally variables listed as elements <<Output>> of <<ModelStructure>> with a floating point type and <<variability>> = <<discrete>>.
 
 ** <<StepMode>> (Co-Simulation): The variables listed as elements <<Output>> of <<ModelStructure>> with a floating point type and <<variability>> = <<continuous>> or <<discrete>>.
-Each continuous-time state derivative variable listed as elements <<ContinuousStateDerivative>> in <<ModelStructure>>, if present.
+Each continuous state derivative variable listed as elements <<ContinuousStateDerivative>> in <<ModelStructure>>, if present.
 
 * latexmath:[\mathbf{v}_{\mathit{known}}] is the vector of arguments of function latexmath:[\mathbf{f}] which can be changed by the importer in the current mode.
 Details about which variables are in latexmath:[\mathbf{v}_{\mathit{known}}] are given in the description of element <<dependencies>> in <<ModelStructure>>.
@@ -1194,7 +1194,7 @@ _[Note, function <<fmi3GetDirectionalDerivative>> can be utilized for the follow
 
 - _Numerical integrators of stiff methods need matrix latexmath:[{\frac{\partial \mathbf{f}}{\partial \mathbf{x}}}]._
 
-- _If the FMU is connected with other FMUs, the partial derivatives of the state derivatives and outputs with respect to the continuous-time states and the <<input,`inputs`>> are needed in order to compute the Jacobian for the system of the connected FMUs._
+- _If the FMU is connected with other FMUs, the partial derivatives of the state derivatives and outputs with respect to the continuous states and the <<input,`inputs`>> are needed in order to compute the Jacobian for the system of the connected FMUs._
 
 - _If the FMU shall be linearized, the same <<derivative,`derivatives`>> as in the previous item are needed._
 
