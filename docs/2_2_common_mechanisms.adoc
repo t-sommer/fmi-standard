@@ -420,7 +420,7 @@ If an FMU defines min/max values for <<local>> and <<output>> variables of float
 ===== Getting and Setting the Complete FMU State [[get-set-fmu-state]]
 
 The FMU has internal data representing its entire state.
-This internal FMU state consists especially of the values of the continuous states, discrete-time states, iteration variables, <<parameter>> values, <<input>> values, delay buffers, file identifiers, and FMU internal status information.
+This internal FMU state consists especially of the values of the continuous states, discrete states, iteration variables, <<parameter>> values, <<input>> values, delay buffers, file identifiers, and FMU internal status information.
 Depending on the FMI type, only a subset of this data is directly accessible via the FMI C-API.
 With the functions of this section, the entire internal FMU state can be stored and reapplied to continue the simulation from this FMU state.
 
@@ -800,7 +800,7 @@ where:
 
 When latexmath:[k] is active (i.e., ticking) invoking the FMI functions `fmi3Get{VariableType}` on variables in the output vector latexmath:[\mathbf{y}_k] will trigger the execution of the output function latexmath:[\mathbf{f}_{\mathit{event}}] to compute such variables.
 If <<providesEvaluateDiscreteStates>> is `false`, then latexmath:[\mathbf{f}_{\mathit{disc}}] cannot be called explicitly using <<fmi3EvaluateDiscreteStates>>, but will be implicitly executed during latexmath:[\mathbf{f}_{\mathit{event}}].
-When <<fmi3EvaluateDiscreteStates>> is called, the discrete-time state vector latexmath:[\mathbf{x}_k] is updated according to state transition function latexmath:[\mathbf{f}_{\mathit{disc}}].
+When <<fmi3EvaluateDiscreteStates>> is called, the discrete state vector latexmath:[\mathbf{x}_k] is updated according to state transition function latexmath:[\mathbf{f}_{\mathit{disc}}].
 
 _[Separating_ latexmath:[\mathbf{f}_{\mathit{disc}}] _from_ latexmath:[\mathbf{f}_{\mathit{event}}] _allows manipulation of the current (discrete) state and compute the corresponding outputs, for instance for model-based control applications.]_
 
@@ -811,7 +811,7 @@ During <<InitializationMode>>, if a clocked variable is declared as an <<Initial
 Declaring a clocked variable as an <<InitialUnknown>> is optional.
 Uninitialized clocked variables must be initialized in the corresponding Clock's first tick.
 
-A <<ClockedState>> is a clocked variable belonging to the discrete-time state vector latexmath:[\mathbf{x}_k], whose value depends on its previous value (i.e., the value computed at the last Clock tick).
+A <<ClockedState>> is a clocked variable belonging to the discrete state vector latexmath:[\mathbf{x}_k], whose value depends on its previous value (i.e., the value computed at the last Clock tick).
 Clocked states declare the <<valueReference>> of their previous variable using the <<previous>> attribute.
 
 The association between <<clocked-variable,clocked variables>> and their <<Clock,Clocks>> is defined by the attribute <<clocks>>.
@@ -1128,7 +1128,7 @@ Each continuous state derivative variable listed as elements <<ContinuousStateDe
 * latexmath:[\mathbf{v}_{\mathit{known}}] is the vector of arguments of function latexmath:[\mathbf{f}] which can be changed by the importer in the current mode.
 Details about which variables are in latexmath:[\mathbf{v}_{\mathit{known}}] are given in the description of element <<dependencies>> in <<ModelStructure>>.
 
-* latexmath:[{\mathbf{v}_{\mathit{rest}}}] is the set of <<input>> variables and discrete-time states of function latexmath:[\mathbf{f}] which cannot be set by the importer in the current mode, but in other modes _[for example, discrete-time <<input,`inputs`>> in <<ContinuousTimeMode>>]_.
+* latexmath:[{\mathbf{v}_{\mathit{rest}}}] is the set of <<input>> variables and discrete states of function latexmath:[\mathbf{f}] which cannot be set by the importer in the current mode, but in other modes _[for example, discrete-time <<input,`inputs`>> in <<ContinuousTimeMode>>]_.
 
 * <<EventIndicator,`EventIndicators`>> must not be included among latexmath:[\mathbf{v}_{\mathit{unknown}}]. +
 _[This is intentional as their dependencies listed in <<ModelStructure>> are intended for debugging purposes and not for partial derivatives.]_

@@ -182,7 +182,7 @@ A vector of floating point continuous-time variables representing the first deri
 
 |latexmath:[\mathbf{x}_d] +
 latexmath:[^{\bullet}\mathbf{x}_d]
-|latexmath:[\mathbf{x}_d] is a vector of (internal) discrete-time variables (of any type) representing the discrete-time states. +
+|latexmath:[\mathbf{x}_d] is a vector of (internal) discrete-time variables (of any type) representing the discrete states. +
 latexmath:[{}^{\bullet}\mathbf{x}_d] is the value of latexmath:[\mathbf{x}_d] at the previous super-dense time instant. +
 
 |latexmath:[T_{\mathit{next}}]

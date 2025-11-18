@@ -534,7 +534,7 @@ a|
   - latexmath:[\mathbf{f}_{\mathit{event}}] if <<providesEvaluateDiscreteStates>> is `false` and latexmath:[\mathbf{f}_{\mathit{event}}] was not called within this super-dense time.
 * latexmath:[(\mathbf{T}_{\mathit{interval}}) := \mathbf{f}_{\mathit{update}}({}^\bullet\mathbf{x}_{c+d}, \mathbf{u}_{c+d}, \mathbf{p}, {}^\bullet\mathbf{b}, t)]
 * latexmath:[(\mathbf{T}_{\mathit{next}}) := \mathbf{f}_{\mathit{update}}({}^\bullet\mathbf{x}_{c+d}, \mathbf{u}_{c+d}, \mathbf{p}, {}^\bullet\mathbf{b}, t)]
-* Update previous values of discrete-time states: latexmath:[{}^\bullet\mathbf{x}_d := \mathbf{x}_d].
+* Update previous values of discrete states: latexmath:[{}^\bullet\mathbf{x}_d := \mathbf{x}_d].
 * Update previous values of <<buffers>>: latexmath:[{}^\bullet\mathbf{b} := \mathbf{b}].
 * Deactivate active clocks and respective model partitions.
 * Increment super-dense time: latexmath:[t := (t_{R}, t_{I} + 1)].
@@ -564,7 +564,7 @@ For <<inputClock,`input Clocks`>>, <<fmi3SetClock>> is called to set the activat
 During the solution of algebraic loops, the activation condition of triggered input clocks may change and therefore <<fmi3SetClock>> can be called multiple times per super-dense time instant.
 When a Clock latexmath:[k] is deactivated, the FMU must
 
-* reset all clocked discrete-time states of this Clock to the values computed during the last <<fmi3UpdateDiscreteStates>> when this Clock was active (latexmath:[{}^\bullet\mathbf{v}_{\mathit{k}}]); and, as a result:
+* reset all clocked discrete states of this Clock to the values computed during the last <<fmi3UpdateDiscreteStates>> when this Clock was active (latexmath:[{}^\bullet\mathbf{v}_{\mathit{k}}]); and, as a result:
 * deactivate all Clocks that were activated as a result of latexmath:[k]'s activation during the current super-dense time instant.
 
 +
@@ -611,7 +611,7 @@ Function <<fmi3GetNumberOfEventIndicators>>::
 Not allowed in Co-Simulation and Scheduled Execution.
 
 Function <<fmi3EvaluateDiscreteStates>>::
-This function is called to trigger the evaluation of latexmath:[\mathbf{f}_{\mathit{disc}}] to compute the current values of discrete-time states from previous values.
+This function is called to trigger the evaluation of latexmath:[\mathbf{f}_{\mathit{disc}}] to compute the current values of discrete states from previous values.
 The FMU signals the support of <<fmi3EvaluateDiscreteStates>> via the capability flag <<providesEvaluateDiscreteStates>>.
 +
 [[fmi3EvaluateDiscreteStates,`fmi3EvaluateDiscreteStates`]]
